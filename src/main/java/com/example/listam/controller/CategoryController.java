@@ -26,14 +26,14 @@ public class CategoryController {
     @Autowired
     CommentRepository commentRepository;
 
-    @GetMapping("")
+    @GetMapping()
     public String categoriesPage(ModelMap modelMap) {
         List<Category> all = categoryRepository.findAll();
         modelMap.addAttribute("categories", all);
         return "categories";
     }
 
-    @PostMapping("")
+    @PostMapping()
     public String addCategory(@RequestParam("categoryName") String categoryName) {
         categoryRepository.save(
                 Category.builder()

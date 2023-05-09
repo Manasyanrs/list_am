@@ -25,7 +25,7 @@ public class ItemController {
     @Autowired
     private CommentRepository commentRepository;
 
-    @GetMapping("")
+    @GetMapping()
     public String getItemsPage(ModelMap modelMap) {
         List<Item> all = itemRepository.findAll();
         modelMap.addAttribute("items", all);
