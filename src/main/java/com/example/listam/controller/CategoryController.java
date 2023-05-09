@@ -11,11 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 @Controller
+@RequestMapping("/categories")
 public class CategoryController {
     @Autowired
     CategoryRepository categoryRepository;
@@ -24,14 +26,14 @@ public class CategoryController {
     @Autowired
     CommentRepository commentRepository;
 
-    @GetMapping("/categories")
+    @GetMapping("")
     public String categoriesPage(ModelMap modelMap) {
         List<Category> all = categoryRepository.findAll();
         modelMap.addAttribute("categories", all);
         return "categories";
     }
 
-    @PostMapping("/categories")
+    @PostMapping("")
     public String addCategory(@RequestParam("categoryName") String categoryName) {
         categoryRepository.save(
                 Category.builder()
@@ -41,7 +43,7 @@ public class CategoryController {
         return "redirect:/categories";
     }
 
-    @PostMapping("/category/remove")
+    @PostMapping("/remove")
     public String deleteCategory(@RequestParam("id") int categoryId) {
         List<Item> itemsByCategoryId = itemRepository.getItemsByCategoryId(categoryId);
 

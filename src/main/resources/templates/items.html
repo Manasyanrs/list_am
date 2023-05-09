@@ -14,7 +14,7 @@
 </form>
 <br>
 
-<form method="get" action="/item/add">
+<form method="get" action="/items/add">
     <button>Add item</button>
 </form>
 
@@ -33,12 +33,12 @@
         <tr th:each="item: ${items}">
             <td th:text="${item.getId()}"></td>
             <td>
-                <a th:href="@{'/item/' + ${item.getId()}}">
+                <a th:href="@{'/items/' + ${item.getId()}}">
                     <span th:text="${item.getTitle()}"></span>
                 </a>
             </td>
             <td>
-                <form method="post" th:action="@{/item/remove(id=${item.getId()})}">
+                <form method="post" th:action="@{/items/remove(id=${item.getId()})}">
                     <button>Remove</button>
                 </form>
             </td>

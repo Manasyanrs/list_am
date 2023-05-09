@@ -20,7 +20,7 @@ public class CommentController {
     private ItemRepository itemRepository;
 
 
-    @PostMapping("/item/{id}")
+    @PostMapping("/items/{id}")
     public String addComment(@PathVariable("id") int id,
                              @RequestParam("addComment") String comment) {
         Optional<Item> byId = itemRepository.findById(id);
@@ -28,7 +28,7 @@ public class CommentController {
                 .comment(comment)
                 .item(byId.get())
                 .build());
-        return "redirect:/item/" + id;
+        return "redirect:/items/" + id;
     }
 
     @PostMapping("/comment/remove")
@@ -36,7 +36,7 @@ public class CommentController {
         Optional<Comment> c = commentRepository.findById(commentId);
         int id = c.get().getItem().getId();
         commentRepository.deleteById(commentId);
-        return "redirect:/item/" + id;
+        return "redirect:/items/" + id;
     }
 
 

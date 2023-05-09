@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
+@RequestMapping("/items")
 public class ItemController {
 
     @Autowired
@@ -24,14 +25,14 @@ public class ItemController {
     @Autowired
     private CommentRepository commentRepository;
 
-    @GetMapping("/items")
+    @GetMapping("")
     public String getItemsPage(ModelMap modelMap) {
         List<Item> all = itemRepository.findAll();
         modelMap.addAttribute("items", all);
         return "items";
     }
 
-    @GetMapping("/item/{id}")
+    @GetMapping("/{id}")
     public String getItem(@PathVariable("id") int id, ModelMap modelMap) {
         Optional<Item> byId = itemRepository.findById(id);
         List<Comment> commentsByItemId = commentRepository.getCommentsByItemId(id);
@@ -46,7 +47,7 @@ public class ItemController {
         }
     }
 
-    @GetMapping("/item/add")
+    @GetMapping("/add")
     public String addItemPage(ModelMap modelMap) {
         List<Category> all = categoryRepository.findAll();
         modelMap.addAttribute("categories", all);
@@ -54,13 +55,13 @@ public class ItemController {
 
     }
 
-    @PostMapping("/item/add")
+    @PostMapping("/add")
     public String addItem(@ModelAttribute Item item) {
         itemRepository.save(item);
         return "redirect:/items";
     }
 
-    @PostMapping("/item/remove")
+    @PostMapping("/remove")
     public String removeItem(@RequestParam("id") int itemId) {
         List<Comment> commentsByItemId = commentRepository.getCommentsByItemId(itemId);
         if (!commentsByItemId.isEmpty()) {

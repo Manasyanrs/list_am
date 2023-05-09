@@ -26,7 +26,7 @@
         <td th:text="${category.getId()}"></td>
         <td th:text="${category.getName()}"></td>
         <td>
-            <form method="post" th:action="@{/category/remove(id=${category.getId()})}">
+            <form method="post" th:action="@{/categories/remove(id=${category.getId()})}">
                 <button>Remove</button>
             </form>
         </td>
