@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="../static/styles/stylesCSS.css" th:href="@{/styles/stylesCSS.css}">
+    <meta charset="UTF-8">
+    <title>Items</title>
+</head>
+<body>
+
+<h2>Welcome to the <b><i>Items</i></b> page</h2>
+
+<form method="get" action="/">
+    <button> Home page</button>
+</form>
+<br>
+
+<form method="get" action="/item/add">
+    <button>Add item</button>
+</form>
+
+
+<div>
+    <br>
+</div>
+
+<div th:if="${items.size() > 0}">
+    <table>
+        <tr>
+            <th>id</th>
+            <th>title</th>
+            <th>action</th>
+        </tr>
+        <tr th:each="item: ${items}">
+            <td th:text="${item.getId()}"></td>
+            <td>
+                <a th:href="@{'/item/' + ${item.getId()}}">
+                    <span th:text="${item.getTitle()}"></span>
+                </a>
+            </td>
+            <td>
+                <form method="post" th:action="@{/item/remove(id=${item.getId()})}">
+                    <button>Remove</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+<div th:unless="${items.size() > 0}">
+    <span>Items is empty.</span>
+</div>
+
+
+</body>
+</html>

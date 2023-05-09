@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/styles/stylesCSS.css" th:href="@{/styles/stylesCSS.css}">
+    <title> Get Item</title>
+</head>
+<body>
+
+    <form method="get" action="/items">
+        <button formaction="/"> Home page</button>
+        <button>Back</button>
+    </form>
+    <fieldset>
+        <legend>Title: </legend>
+        <h1 th:text="${item.getTitle()}"></h1>
+    </fieldset>
+    <fieldset>
+        <legend>Category name is:</legend>
+        <span th:if="${item.getCategory() != null}" th:text="${item.getCategory().getName()}"></span>
+    </fieldset>
+    <fieldset>
+        <legend>Description:</legend>
+        <p th:text="${item.getDescription()}"></p>
+
+    </fieldset>
+
+
+
+    <div th:if="${!comments.isEmpty()}">
+        <h3>Comments: </h3>
+        <span class="commentBody" th:each="comment: ${comments}">
+            <div>
+                <p th:text="${comment.getComment()}"></p>
+            </div>
+            <div>
+                <form method="post" th:action="@{/comment/remove(commentId=${comment.getId()})}">
+                    <button>Delete</button>
+                </form>
+            </div>
+
+        </span>
+    </div>
+
+    <div>
+        <form method="post" action="" th:id="${item.getId()}">
+            <textarea  name="addComment" rows="7" cols="30" maxlength="255"></textarea>
+            <button>Add comment</button>
+        </form>
+    </div>
+</body>
+</html>

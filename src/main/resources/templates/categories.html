@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/styles/stylesCSS.css" th:href="@{/styles/stylesCSS.css}">
+    <title>Categories page</title>
+</head>
+<body>
+<h1>Welcome to the <u><b>Categories</b></u> page.</h1>
+<form method="get" action="/">
+    <button> Home page</button>
+</form>
+<br>
+<form method="post">
+    <input type="text" name="categoryName">
+    <button>Add category</button>
+</form>
+<div><br></div>
+<table>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>action</th>
+    </tr>
+    <tr th:each="category : ${categories}">
+        <td th:text="${category.getId()}"></td>
+        <td th:text="${category.getName()}"></td>
+        <td>
+            <form method="post" th:action="@{/category/remove(id=${category.getId()})}">
+                <button>Remove</button>
+            </form>
+        </td>
+    </tr>
+</table>
+
+
+</body>
+</html>
